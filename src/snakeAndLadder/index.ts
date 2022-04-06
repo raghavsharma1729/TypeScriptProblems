@@ -1,12 +1,4 @@
-interface Ladder {
-  foot: number;
-  top: number;
-}
-
-interface Snake {
-  head: number;
-  tail: number;
-}
+import { Board, Ladder, Snake } from "./type";
 
 const ladders: Ladder[] = [
   { foot: 7, top: 33 },
@@ -20,18 +12,11 @@ const snakes: Snake[] = [
   { head: 87, tail: 32 },
 ];
 
-interface Board {
-  startPoint?: number;
-  endPoint?: number;
-  ladders?: Ladder[];
-  snakes?: Snake[];
-}
-
-class SnakeAndLadderBoard implements Board {
-  readonly startPoint = 0;
-  readonly endPoint = 100;
-  readonly ladders = ladders;
-  readonly snakes = snakes;
+class SnakeAndLadderBoard {
+  readonly startPoint: number = 0;
+  readonly endPoint: number = 100;
+  readonly ladders: Ladder[] = ladders;
+  readonly snakes: Snake[] = snakes;
 
   private isValidDiceOutcome(diceNumber: number): boolean {
     return diceNumber > 0 && diceNumber <= 6;
@@ -65,7 +50,7 @@ class SnakeAndLadderBoard implements Board {
     return position;
   }
 
-  constructor({ startPoint, endPoint, ladders, snakes }: Partial<Board>) {
+  constructor({ startPoint, endPoint, ladders, snakes }: Board) {
     if (startPoint !== undefined) {
       this.startPoint = startPoint;
     }
