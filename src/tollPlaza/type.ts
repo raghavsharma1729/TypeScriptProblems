@@ -9,4 +9,5 @@ enum VehicleType {
   Transport = "Transport",
 }
 
+
 export { TollRule, VehicleType };

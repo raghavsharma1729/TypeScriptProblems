@@ -21,7 +21,7 @@
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "startSnake": "ts-node ./src/snakeAndLadder/index.ts",
-    "dice": "ts-node ./src/snakeAndLadder/dice.ts",
+    "tollPlaza": "ts-node ./src/tollPlaza/index.ts",
     "test": "jest"
   },
   "keywords": [],
