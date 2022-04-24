@@ -1,93 +1,26 @@
-import { Board, Ladder, Snake } from "./type";
+import SnakeAndLadderBoard from "./snakeAndLadderBoard";
+import Dice from "./dice";
 
-const ladders: Ladder[] = [
-  { foot: 7, top: 33 },
-  { foot: 37, top: 85 },
-  { foot: 51, top: 72 },
-];
+const dice = new Dice({});
+const gameBoard = new SnakeAndLadderBoard({ startPoint: 0, endPoint: 100 });
 
-const snakes: Snake[] = [
-  { head: 36, tail: 19 },
-  { head: 65, tail: 35 },
-  { head: 87, tail: 32 },
-];
+console.log(`current Positio: 4, Dice: 5`, gameBoard.move(4, 5));
+console.log(`current Position: 34, Dice: 3`, gameBoard.move(34, 3));
+console.log(`current Position: 83, Dice: 4`, gameBoard.move(83, 4));
+console.log(`current Position: 96, Dice: 5`, gameBoard.move(96, 5));
+console.log(`current Position: 99, Dice: 1`, gameBoard.move(99, 1));
+let diceOutcome = dice.roll();
+console.log(
+  `current Position: 45, Dice: ${diceOutcome}`,
+  gameBoard.move(45, diceOutcome)
+);
+diceOutcome = dice.roll();
+console.log(
+  `current Position: 68, Dice: ${diceOutcome}`,
+  gameBoard.move(68, diceOutcome)
+);
 
-class SnakeAndLadderBoard {
-  readonly startPoint: number = 0;
-  readonly endPoint: number = 100;
-  readonly ladders: Ladder[] = ladders;
-  readonly snakes: Snake[] = snakes;
-
-  private isValidDiceOutcome(diceNumber: number): boolean {
-    return diceNumber > 0 && diceNumber <= 6;
-  }
-
-  private isValidBoardPosition(position: number): boolean {
-    return position >= this.startPoint && position <= this.endPoint;
-  }
-
-  private isValidStartingPosition(position: number): boolean {
-    return position >= this.startPoint && position <= this.endPoint;
-  }
-
-  private hasPlayerWon(position: number): boolean {
-    return position == this.endPoint;
-  }
-
-  private checkIfLadderOrSnakeAndMove(position: number): number {
-    const ladderFound = this.ladders.find((ladder) => {
-      return ladder.foot === position;
-    });
-    if (ladderFound) {
-      return ladderFound.top;
-    }
-    const snakeFound = this.snakes.find((ladder) => {
-      return ladder.head === position;
-    });
-    if (snakeFound) {
-      return snakeFound.tail;
-    }
-    return position;
-  }
-
-  constructor({ startPoint, endPoint, ladders, snakes }: Board) {
-    if (startPoint !== undefined) {
-      this.startPoint = startPoint;
-    }
-    if (endPoint !== undefined) {
-      this.endPoint = endPoint;
-    }
-    if (ladders !== undefined) {
-      this.ladders = ladders;
-    }
-    if (snakes !== undefined) {
-      this.snakes = snakes;
-    }
-  }
-
-  move(currentPoistion: number, diceOutcome: number): number | void {
-    if (!this.isValidDiceOutcome(diceOutcome)) {
-      return console.log("Dice outcome is not valid");
-    }
-    if (!this.isValidStartingPosition(currentPoistion)) {
-      return console.log("Board Position is not valid");
-    }
-    let newPosition = currentPoistion + diceOutcome;
-    if (!this.isValidBoardPosition(newPosition)) {
-      return currentPoistion;
-    }
-    newPosition = this.checkIfLadderOrSnakeAndMove(newPosition);
-    if (this.hasPlayerWon(newPosition)) {
-      return console.log("Yay! you won!!");
-    }
-    return newPosition;
-  }
-}
-
-const game = new SnakeAndLadderBoard({ startPoint: 0, endPoint: 100 });
-
-console.log(game.move(4, 5));
-console.log(game.move(34, 3));
-console.log(game.move(83, 4));
-console.log(game.move(96, 5));
-console.log(game.move(99, 1));
+const dice2 = new Dice({ minOutcome: 1, maxOutcome: 6 });
+console.log("Dice Rolling...->", dice2.roll());
+console.log("Dice Rolling...->", dice2.roll());
+console.log("Dice Rolling...->", dice2.roll());
