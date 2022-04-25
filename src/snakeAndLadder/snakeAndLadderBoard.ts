@@ -1,3 +1,4 @@
+import Dice from "./dice";
 import { Board, Ladder, Snake } from "./type";
 
 class SnakeAndLadderBoard {
@@ -60,11 +61,11 @@ class SnakeAndLadderBoard {
     }
   }
 
-  move(currentPoistion: number, diceOutcome: number): number | void {
+  move(currentPoistion: number, dice: Dice): number | void {
     if (!this.isValidStartingPosition(currentPoistion)) {
       return console.log("Board Position is not valid");
     }
-    let newPosition = currentPoistion + diceOutcome;
+    let newPosition = currentPoistion + dice.outcome;
     if (!this.isValidBoardPosition(newPosition)) {
       return currentPoistion;
     }

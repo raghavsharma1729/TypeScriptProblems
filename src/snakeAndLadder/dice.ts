@@ -3,8 +3,19 @@ interface DiceRange {
   maxOutcome: number;
 }
 class Dice {
-  readonly minOutcome: number = 0;
+  private _outcome: number = 0;
+  readonly minOutcome: number = 1;
   readonly maxOutcome: number = 6;
+
+  public get outcome() {
+    return this._outcome;
+  }
+
+  public set outcome(outcome: number) {
+    if (outcome <= this.maxOutcome && outcome >= this.minOutcome) {
+      this._outcome = outcome;
+    }
+  }
 
   constructor({ minOutcome, maxOutcome }: Partial<DiceRange>) {
     if (minOutcome !== undefined && maxOutcome !== undefined) {
@@ -18,7 +29,7 @@ class Dice {
   }
 
   roll = () => {
-    return Math.floor(
+    this._outcome = Math.floor(
       Math.random() * (this.maxOutcome - this.minOutcome + 1) + this.minOutcome
     );
   };
